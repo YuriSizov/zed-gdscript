@@ -22,7 +22,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         );
         std::process::exit(1);
     }
-    let output = Command::new("git").args(["-C", ZED_EXTENSIONS_DIR, "status", "--porcelain"]).output()?;
+    let output = Command::new("git")
+        .args(["-C", ZED_EXTENSIONS_DIR, "status", "--porcelain"])
+        .output()?;
     if !output.stdout.is_empty() {
         eprintln!("Error: The Zed extensions git working directory is not clean.");
         std::process::exit(1);
@@ -33,7 +35,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         eprintln!("Error: extension.toml not found in the zed-gdscript repository.");
         std::process::exit(1);
     }
-    let output = Command::new("git").args(["status", "--porcelain"]).output()?;
+    let output = Command::new("git")
+        .args(["status", "--porcelain"])
+        .output()?;
     if !output.stdout.is_empty() {
         eprintln!("Error: The zed-gdscript git working directory is not clean. Please commit or stash changes before running this script.");
         std::process::exit(1);
@@ -99,16 +103,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .args(["checkout", "-b", &branch_name])
         .status()?;
 
-    let mut zed_extensions_toml: Table = toml::from_str(&fs::read_to_string("extension.toml")?)?;
+    let mut zed_extensions_toml: Table = toml::from_str(&fs::read_to_string("extensions.toml")?)?;
     zed_extensions_toml["gdscript"]["version"] = Value::String(new_version_str.clone());
-    fs::write("extension.toml", toml::to_string(&zed_extensions_toml)?)?;
+    fs::write("extensions.toml", toml::to_string(&zed_extensions_toml)?)?;
 
     Command::new("git")
         .args(["submodule", "update", "--remote", "extensions/gdscript"])
         .status()?;
 
     Command::new("git")
-        .args(["add", "extension.toml"])
+        .args(["add", "extensions.toml"])
         .status()?;
     Command::new("git")
         .args(["add", "extensions/gdscript"])
