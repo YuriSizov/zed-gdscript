@@ -2,6 +2,21 @@
 
 This file documents the changes made to the formatter with each release. This project uses [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## Release 0.8.0 (2026-04-11)
+
+### Added
+
+- Add `.gdshaderinc` file extension support to the GDShader grammar
+- Add `playArgs` and `scene` properties to the DAP schema
+- Improve GDScript syntax highlighting, add customization options and support for more detailed community themes (thanks @Fuzzycc)
+
+### Changed
+
+- README:
+  - Add a section about opening documentation in the editor
+  - Add a note to the about using gdscript-formatter
+  - Clarify that netcat may be installed as `nc` or `ncat`
+
 ## Release 0.7.0 (2025-10-23)
 
 ### Added

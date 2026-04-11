@@ -1,3 +1,0 @@
-toml
-packaging
-pyperclip
